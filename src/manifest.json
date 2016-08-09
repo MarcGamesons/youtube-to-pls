@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "YouTube to PLS plugin",
+  "name": "YouTube to PLS",
   "description": "This extension can generate a PLS file from a YouTube Playlist.",
   "version": "1.0",
 
