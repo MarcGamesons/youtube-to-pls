@@ -1,0 +1,94 @@
+* {
+	padding:0;
+	margin:0;
+}
+body {
+	/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);*/
+	font-family: sans-serif;
+
+	color: #202020;
+	background-color: #fafafa;
+}
+.wrapper {
+	margin-left: auto;
+	margin-right: auto;
+
+	width: 520px;
+	margin-top: 20px;
+
+	text-align: center;
+}
+.label-text {
+	font-size: 20px;
+	font-weight: 700;
+}
+.help-text-container {
+	margin-left: auto;
+	margin-right: auto;
+
+	width: 420px;
+}
+.help-text-wrapper {
+	margin: 10px 0px 10px 0px;
+	display: block;
+}
+.help-text {
+	/*text-align: justify;*/
+}
+#textbox {
+	height: 20px;
+	width: 500px;
+
+	padding: 3px;
+
+	border: 1px solid silver;
+	border-radius: 3px;
+}
+#create {
+	font-size: 18px;
+
+	width: 150px;
+	height: 27px;
+
+	border-radius: 3px;
+	border: 1px solid silver;
+	background-color: silver;
+}
+#create:hover {
+	background-color: #d2d2d2;
+}
+a {
+	color: #0092FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #5AB8FF;
+	text-decoration: underline;
+}
+.download-wrapper {
+	width: 200px;
+
+	margin: 20px auto 5px auto;
+
+	text-align: center;
+}
+a#downloadlink {
+	color: white;
+	font-size: 18px;
+
+	background-color: #30AE30;
+	
+	border-radius: 3px;
+
+	height: 22px;
+	
+	padding: 5px;
+}
+a#downloadlink:hover {
+	text-decoration: none;
+	background-color: #6EC66E;
+}
+#know {
+	font-size: 10px;
+	margin-bottom: 5px;
+}

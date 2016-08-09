@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>YouTube to PLS</title>
+		<link href="main.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<label><span class="label-text">Please enter the URL:</span></label><br>
+			<input type="text" id="textbox"></input>
+			<div class="help-text-container">
+				<div class="help-text-wrapper">
+					<p>How does it work?</p>
+					<p class="help-text">Simply paste the URL of a playlist into the textfield.</p>
+				</div>
+			</div>
+			<textarea id="generatedtext" style="display: none;"></textarea>
+			<button id="create">Create .pls file</button><br>
+			<div class="download-wrapper">
+				<a download="playlist.pls" id="downloadlink" style="display: none">Download</a>
+			</div>
+			<a id="know" href="https://en.wikipedia.org/wiki/PLS_(file_format)" target="_blank" style="display: none">Want to know more about the .pls File format?</a>
+		</div>
+		<script src="popup.js"></script>
+	</body>
+</html>
