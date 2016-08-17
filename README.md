@@ -5,6 +5,7 @@ Download the extension and install it in Google Chrome. After that you can click
 
 # Installation
 ![alt tag](http://i.imgur.com/QYmqexO.png)
+
 1. Go to your settings and click on Extensions or type chrome://extensions in your adress bar.
 2. Then click the checkbox that says Developermode.
 3. Now simply drop the .crx file from the download onto your browser.
