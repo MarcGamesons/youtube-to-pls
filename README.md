@@ -1,5 +1,7 @@
 # Youtube to PLS Extension
 
+### Installation
+
 1. Download the "src" folder
 2. Open your Chrome browser.
 3. Type this url into your browser: `chrome://extensions`
