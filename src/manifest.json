@@ -3,7 +3,7 @@
 
   "name": "YouTube to PLS",
   "description": "This extension can generate a PLS file from a YouTube Playlist.",
-  "version": "1.0",
+  "version": "1.2",
 
   "browser_action": {
    "default_icon": "icon.png",

@@ -1,7 +1,10 @@
+var plsWait = document.getElementById('plswait');
+
 document.addEventListener('DOMContentLoaded', function() {
   var checkPageButton = document.getElementById('create');
   checkPageButton.addEventListener('click', function() {
 
+    plsWait.innerHTML = "This can take a moment, please wait!";
    doRequest();
 
   }, false);
@@ -12,7 +15,7 @@ var textFile = null;
 
 function makeTextFile(text) {
 	var data = new Blob([text], {type: 'text/plain'});
-	
+
 	// If we are replacing a previously generated file we need to
 	// manually revoke the object URL to avoid memory leaks.
 	if(textFile !== null) {
@@ -29,13 +32,14 @@ function makeTextFile(text) {
 function createURL(playlistId, pageToken) {
 	if(playlistId != null) {
 		if(pageToken != null) {
-			return String("https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId="+String(playlistId)+"&maxResults=50&pageToken="+String(pageToken)+"&key=AIzaSyD_C8aMtHKJ9WhJlkgn50_ZTuVGFFaK9vk");
+			return String("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+String(playlistId)+"&maxResults=50&pageToken="+String(pageToken)+"&key=AIzaSyD_C8aMtHKJ9WhJlkgn50_ZTuVGFFaK9vk");
 		} else {
-			console.log('Warning: "pageToken" was not defined!');
-			return String("https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId="+String(playlistId)+"&maxResults=50&key=AIzaSyD_C8aMtHKJ9WhJlkgn50_ZTuVGFFaK9vk");
+			// console.log('Warning: "pageToken" was not defined!');
+      // test ID: UUHO3sRJtKFlHQGW-zLGt5yw https://www.youtube.com/playlist?list=UUHO3sRJtKFlHQGW-zLGt5yw
+			return String("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+String(playlistId)+"&maxResults=50&key=AIzaSyD_C8aMtHKJ9WhJlkgn50_ZTuVGFFaK9vk");
 		}
 	} else {
-		console.log('Error: "playlistId" was not defined! Aborted!');
+		// console.log('Error: "playlistId" was not defined! Aborted!');
 		return null;
 	}
 }
@@ -67,58 +71,80 @@ function doRequest(url) {
 	}
 }
 
-var myText = new Array();
+var myId = new Array();
+var myTitle = new Array();
 var identifier = 0;
 var totalEntries = 9999;
 
-function saveInArray(data) {
-	myText[identifier] = data;
+function saveIdInArray(data) {
+	myId[identifier] = data;
+}
+
+function saveTitleInArray(data) {
+  myTitle[identifier] = data;
 }
 
 function processRequest(e) {
     if (xhr.readyState == 4 && xhr.status == 200) {
+      // console.log("success!");
 		response = JSON.parse(xhr.responseText);
 		nextToken = response.nextPageToken;
 		totalEntries = response.pageInfo.totalResults;
 
 		for(i=0; i < response.items.length; i++) {
 			if(identifier == 0) {
-				saveInArray("\[playlist\]\n\n");
+				saveIdInArray("\[playlist\]\n");
+        saveTitleInArray("\n");
+        // console.log("Wrote some data " + identifier);
 				identifier++;
-				saveInArray("File" + identifier + "=https://youtube.com/watch?v=" + response.items[i].contentDetails.videoId + "\n\n");
+        saveTitleInArray("Title" + identifier + "=" + response.items[i].snippet.title + "\n")
+				saveIdInArray("File" + identifier + "=https://youtube.com/watch?v=" + response.items[i].snippet.resourceId.videoId + "\n\n");
+        // console.log("Wrote some data " + identifier);
 				identifier++;
 			} else {
-				myText[identifier] = "File" + identifier + "=https://youtube.com/watch?v=" + response.items[i].contentDetails.videoId + "\n\n";
+        myTitle[identifier] = "Title" + identifier + "=" + response.items[i].snippet.title + "\n";
+				myId[identifier] = "File" + identifier + "=https://youtube.com/watch?v=" + response.items[i].snippet.resourceId.videoId + "\n\n";
+        // console.log("Wrote some data " + identifier);
 				identifier++;
-				if(myText.length == totalEntries) {
-					count  = identifier - 1;
-					myText[identifier] = "NumberOfEntries="+count;
-
-					var text = document.getElementById('generatedtext');
-
-					for (var i = 0; i < myText.length; i++) {
-						if(text.value == "") {
-							text.value = String(myText[i]);
-						} else {
-							text.value = text.value + String(myText[i]);
-						}
-					}
-
-					var link = document.getElementById('downloadlink');					
-					link.href = makeTextFile(generatedtext.value);
-					link.style.display = 'block';
-					var know = document.getElementById("know");
-					know.style.display = "block";
-				}
+        // console.log(myId.length + " - " + totalEntries);
 			}
 		}
 
 		if(nextToken != null) {
-			console.log(nextToken);
+			// console.log(nextToken);
 			nextURL = createURL(textbox.value, nextToken);
 			doRequest(nextURL);
 		} else if(nextToken == null) {
 			canRequest = false;
+      count  = identifier - 1;
+      myTitle[identifier] = "";
+      myId[identifier] = "NumberOfEntries="+count;
+
+      // console.log("All data written!");
+
+      var text = document.getElementById('generatedtext');
+
+      for (var i = 0; i < myId.length; i++) {
+        if(text.value == "") {
+          text.value = String(myId[i]);
+          text.value = text.value + String(myTitle[i]);
+        } else {
+          text.value = text.value + String(myTitle[i]);
+          text.value = text.value + String(myId[i]);
+        }
+      }
+
+      text.value = text.value + String("\nVersion=2");
+
+      plsWait.style.display = "none";
+
+      var link = document.getElementById('downloadlink');
+      link.href = makeTextFile(generatedtext.value);
+      link.style.display = 'block';
+      var know = document.getElementById("know");
+      know.style.display = "block";
 		}
-	}
+	} else if(xhr.readyState != 4 || xhr.status != 200) {
+    // console.log("ERROR:: Something went wrong!");
+  }
 }
