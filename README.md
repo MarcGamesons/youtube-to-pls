@@ -12,3 +12,4 @@
 
 Now you should have an icon in your Toolbar that you can click to use the extension.
 
+Alternative: You can now get a userscript version [here](https://github.com/MarcGamesons/youtube-to-pls/raw/master/userscript/youtube-to-pls.user.js).
