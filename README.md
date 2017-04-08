@@ -11,3 +11,4 @@
 7. Ensure that the checkbox next to `YouTube to PLS` is checked.
 
 Now you should have an icon in your Toolbar that you can click to use the extension.
+
