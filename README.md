@@ -1,6 +1,8 @@
-# Youtube to PLS Extension
+# PROJECT ARCHIVED
 
-### Installation
+## Youtube to PLS Extension
+
+#### Installation
 
 1. Download the "src" folder
 2. Open your Chrome browser.
